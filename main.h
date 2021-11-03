@@ -74,7 +74,7 @@ int (*func)(config *build);
 config *config_init(config *build);
 
 /* --- built_ins --- */
-_Bool find_built_ins(config *build);
+int find_built_ins(config *build);
 int exit_function(config *build);
 int history_function(config *build);
 int alias_function(config *build);
@@ -85,14 +85,14 @@ int _atoi(char *s);
 
 /* --- cd --- */
 int implement_cd(config *);
-_Bool cd_to_home(config *build);
-_Bool cd_to_previous(config *build);
-_Bool cd_to_custom(config *build);
-_Bool update_environ(config *build);
+int cd_to_home(config *build);
+int cd_to_previous(config *build);
+int cd_to_custom(config *build);
+int update_environ(config *build);
 
 /* --- cd2 --- */
 int update_old(config *build);
-_Bool update_cur_dir(config *build, int index);
+int update_cur_dir(config *build, int index);
 
 /* --- env_variables --- */
 int env_function(config *build);
@@ -143,9 +143,9 @@ void free_args(char **args);
 void free_list(linked_l *head);
 
 /* --- split_string --- */
-_Bool split_string(config *build);
+int split_string(config *build);
 unsigned int count_words(char *s);
-_Bool is_space(char c);
+int is_space(char c);
 
 /* --- string_controls --- */
 int _strlen(char *s);
@@ -160,8 +160,8 @@ int _strcspn(char *string, char *chars);
 char *_strchr(char *s, char c);
 
 /* --- check_path --- */
-_Bool check_path(config *);
-_Bool validate_constraints(config *build);
+int check_path(config *);
+int validate_constraints(config *build);
 
 /* --- linkedlist_funs1 --- */
 linked_l *add_node_to_front(linked_l **head, char *str);

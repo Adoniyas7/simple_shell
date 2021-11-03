@@ -7,16 +7,16 @@
 *     * @build: input build
 *      * Return: the state of the path values
 */
-_Bool check_path(config *build)
+int check_path(config *build)
 {
 register int len;
 static char buffer[BUFSIZE];
 struct stat st;
 char *token, *copy, *delim = ":", *tmp;
-_Bool inLoop = false;
+int inLoop = 0;
 
 if (validate_constraints(build))
-return (true);
+return (1);
 copy = _strdup(build->path);
 token = _strtok(copy, delim);
 while (token)
@@ -25,7 +25,7 @@ tmp = inLoop ? token - 2 : token;
 if (*tmp == 0 && stat(build->args[0], &st) == 0)
 {
 build->full_path = build->args[0];
-return (true);
+return (1);
 }
 len = _strlen(token) + _strlen(build->args[0]) + 2;
 _strcat(buffer, token);
@@ -36,22 +36,22 @@ if (stat(buffer, &st) == 0)
 {
 build->full_path = buffer;
 free(copy);
-return (true);
+return (1);
 }
 get_null_bytes(buffer, 0);
 token = _strtok(NULL, delim);
-inLoop = true;
+inLoop = 1;
 }
 build->full_path = build->args[0];
-return (false);
+return (0);
 }
 
 /**
 *  * checkEdgeCases - helper func for check path to check edge cases
 *   * @build: input build
-*    * Return: true if found, false if not
+*    * Return: 1 if found, 0 if not
 */
-_Bool validate_constraints(config *build)
+int validate_constraints(config *build)
 {
 char *copy;
 struct stat st;
@@ -60,14 +60,13 @@ copy = _strdup(build->path);
 if (!copy)
 {
 build->full_path = build->args[0];
-return (true);
+return (1);
 }
 if (*copy == ':' && stat(build->args[0], &st) == 0)
 {
 build->full_path = build->args[0];
-return (true);
+return (1);
 }
 free(copy);
-return (false);
+return (0);
 }
-

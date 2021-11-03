@@ -79,7 +79,7 @@ strip_comments(build->buffer);
 void strip_comments(char *str)
 {
 register int i = 0;
-_Bool is_not_first = false;
+int is_not_first = 0;
 
 while (str[i])
 {
@@ -97,7 +97,7 @@ return;
 }
 }
 i++;
-is_not_first = true;
+is_not_first = 1;
 }
 }
 

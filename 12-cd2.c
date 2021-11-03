@@ -38,9 +38,9 @@ return (pwdIndex);
 *  * update_cur_dir - updates PWD to accurately reflect current directory
 *   * @build: input build
 *    * @index: index in linked list of where to insert PWD env var
-*     * Return: true on success, false on failure
+*     * Return: 1 on success, 0 on failure
 */
-_Bool update_cur_dir(config *build, int index)
+int update_cur_dir(config *build, int index)
 {
 static char tmp[BUFSIZE], cwd[BUFSIZE];
 
@@ -56,5 +56,5 @@ else
 add_node_at_index(&build->env, 0, cwd);
 get_null_bytes(tmp, 0);
 get_null_bytes(cwd, 0);
-return (true);
+return (1);
 }

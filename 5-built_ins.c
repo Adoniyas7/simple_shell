@@ -5,9 +5,9 @@
 *   * @build: input build
 *    *
 *     * Description: uses build  functions to validate user commands
-*      * Return: true if found, false if not
+*      * Return: 1 if found, 0 if not
 */
-_Bool find_built_ins(config *build)
+int find_built_ins(config *build)
 {
 register int i = 0;
 
@@ -28,11 +28,11 @@ if (_strcmp(build->args[0], get_built_ins[i].command) == 0)
 {
 get_built_ins[i].func(build);
 free_args_and_buffer(build);
-return (true);
+return (1);
 }
 i++;
 }
-return (false);
+return (0);
 }
 
 /**

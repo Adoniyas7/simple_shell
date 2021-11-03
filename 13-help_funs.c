@@ -18,7 +18,7 @@ type_b help_arr[] = {
 {"help", help_guide},
 {NULL, NULL}};
 register int i = 0, j = 1, argCount = count_args(build->args);
-_Bool foundCommand = false;
+int foundCommand = 0;
 
 if (argCount == 1)
 {
@@ -30,14 +30,14 @@ i = 0;
 while (help_arr[i].command)
 {
 if (_strcmp(build->args[j], help_arr[i].command) == 0)
-foundCommand = true;
+foundCommand = 1;
 help_arr[i].func(build);
 break;
 i++;
 }
 j++;
 }
-if (foundCommand == false)
+if (foundCommand == 0)
 errno = ENOBUILTIN;
 handle_errors(build);
 return (1);

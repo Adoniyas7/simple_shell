@@ -8,7 +8,7 @@
 int implement_cd(config *build)
 {
 register uint count = 0;
-_Bool can_change = false;
+int can_change = 0;
 
 count = count_args(build->args);
 if (count == 1)
@@ -33,9 +33,9 @@ return (1);
 /**
 *  * cd_to_home - change directory to home
 *   * @build: input build
-*    * Return: true on success, false on failure
+*    * Return: 1 on success, 0 on failure
 */
-_Bool cd_to_home(config *build)
+int cd_to_home(config *build)
 {
 register int i;
 char *str, *ptr;
@@ -43,22 +43,22 @@ char *str, *ptr;
 i = search_node(build->env, "HOME");
 if (i == -1)
 {
-return (true);
+return (1);
 }
 str = get_node_at_index(build->env, i);
 ptr = _strchr(str, '=');
 ptr++;
 chdir(ptr);
-return (true);
+return (1);
 }
 
 /**
 *  * cd_to_previous - change directory to previous directory -
 *   * address is found in OLDPWD env var
 *    * @build: input build
-*     * Return: true on success, false on failure
+*     * Return: 1 on success, 0 on failure
 */
-_Bool cd_to_previous(config *build)
+int cd_to_previous(config *build)
 {
 register int i;
 char *str, *ptr;
@@ -71,7 +71,7 @@ if (i == -1)
 chdir(current);
 write(STDOUT_FILENO, current, _strlen(current));
 put_new_line();
-return (true);
+return (1);
 }
 str = get_node_at_index(build->env, i);
 ptr = _strchr(str, '=');
@@ -79,15 +79,15 @@ ptr++;
 chdir(ptr);
 write(STDOUT_FILENO, ptr, _strlen(ptr));
 put_new_line();
-return (true);
+return (1);
 }
 
 /**
 *  * cd_to_custom - change directory to what user inputs in
 *   * @build: input build
-*    * Return: true on success, false on failure
+*    * Return: 1 on success, 0 on failure
 */
-_Bool cd_to_custom(config *build)
+int cd_to_custom(config *build)
 {
 register int changeStatus;
 
@@ -96,21 +96,21 @@ if (changeStatus == -1)
 {
 errno = EBADCD;
 handle_errors(build);
-return (false);
+return (0);
 }
-return (true);
+return (1);
 }
 
 /**
 *  * updateEnviron - change environmental variables
 *   * @build: input build
-*    * Return: true on success false on failure
+*    * Return: 1 on success 0 on failure
 */
-_Bool update_environ(config *build)
+int update_environ(config *build)
 {
 register int i;
 
 i = update_old(build);
 update_cur_dir(build, i);
-return (true);
+return (1);
 }

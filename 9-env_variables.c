@@ -55,7 +55,7 @@ return (1);
 int unset_env_func(config *build)
 {
 register int foundVar, i = 1;
-_Bool foundMatch = false;
+int foundMatch = 0;
 
 while (build->args[i])
 {
@@ -65,12 +65,12 @@ foundVar = search_node(build->env, build->args[i]);
 if (foundVar > -1)
 {
 delete_node_at_index(&build->env, foundVar);
-foundMatch = true;
+foundMatch = 1;
 }
 }
 i++;
 }
-if (foundMatch == false)
+if (foundMatch == 0)
 {
 errno = ENOSTRING;
 handle_errors(build);

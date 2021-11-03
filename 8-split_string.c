@@ -8,9 +8,9 @@
 *      * Description: Gets the input string,
 *       * then breaks it into individual tokens and
 *        * store it in an array ans separately to implement them
-*         * Return: true if able to split, false if not
+*         * Return: 1 if able to split, 0 if not
 */
-_Bool split_string(config *build)
+int split_string(config *build)
 {
 register unsigned int i = 0;
 char *tok, *cpy;
@@ -21,7 +21,7 @@ if (count_words(build->buffer) == 0)
 {
 build->args = NULL;
 free(build->buffer);
-return (false);
+return (0);
 }
 build->args = malloc((count_words(build->buffer) + 1) * sizeof(char *));
 while (tok)
@@ -33,7 +33,7 @@ i++;
 build->args[i] = NULL;
 free(cpy);
 
-return (true);
+return (1);
 }
 
 /**
@@ -47,17 +47,17 @@ return (true);
 unsigned int count_words(char *str)
 {
 register int words = 0;
-_Bool word_on = false;
+int word_on = 0;
 
 while (*str)
 {
 if (is_space(*str) && word_on)
 {
-word_on = false;
+word_on = 0;
 }
 else if (!is_space(*str) && !word_on)
 {
-word_on = true;
+word_on = 1;
 words++;
 }
 str++;
@@ -68,9 +68,9 @@ return (words);
 /**
 *  * is_space - determines if char is a space
 *   * @c: input char
-*    * Return: true or false
+*    * Return: 1 or 0
 */
-_Bool is_space(char c)
+int is_space(char c)
 {
 return (c == ' ');
 }
